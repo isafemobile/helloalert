@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="eu.kutik.helloalert"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools">
+
+  <!--for app to avoid 5sec delay in broadcast handling it needs this permission -->
+  <!--<uses-permission android:name="android.permission.STOP_APP_SWICHES"
+                       tools:ignore="ProtectedPermissions"/>-->
+
+  <application
+    android:theme="@android:style/Theme.Holo.NoActionBar"
+    android:label="Hello"
+    tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
+    <activity
+      android:name=".MainActivity"
+      android:showOnLockScreen="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
+    <receiver
+      android:name=".ButtonReceiver"
+      android:enabled="true"
+      android:exported="true"
+      tools:ignore="ExportedReceiver">
+      <intent-filter android:priority="-999">
+        <action android:name="android.intent.action.PTT.down"/>
+        <action android:name="ism.intent.action.PTT.down"/>
+        <action android:name="com.kodiak.intent.action.PTT_BUTTON"/>
+      </intent-filter>
+    </receiver>
+  </application>
+
+</manifest>
