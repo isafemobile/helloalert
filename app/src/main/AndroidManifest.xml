@@ -28,9 +28,14 @@
       tools:ignore="ExportedReceiver">
       <intent-filter android:priority="-999">
         <action android:name="android.intent.action.PTT.down"/>
+        <action android:name="android.intent.action.PTT.up"/>
         <action android:name="ism.intent.action.PTT.down"/>
+        <action android:name="ism.intent.action.PTT.up"/>
         <action android:name="com.kodiak.intent.action.PTT_BUTTON"/>
         <action android:name="cn.ruggear.customkey.MyAction"/>
+        <action android:name="com.kodiak.intent.action.KEYCODE_SOS"/>
+        <action android:name="android.intent.action.sos.down"/>
+        <action android:name="android.intent.action.sos.up"/>
       </intent-filter>
     </receiver>
   </application>

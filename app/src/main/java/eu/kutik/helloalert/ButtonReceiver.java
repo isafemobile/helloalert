@@ -12,7 +12,7 @@ public class ButtonReceiver extends BroadcastReceiver {
     if (context != null && intent != null) {
       if (intent.hasExtra(Intent.EXTRA_KEY_EVENT)) {
         KeyEvent keyEvent = intent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
-        if (keyEvent != null && keyEvent.getAction() != KeyEvent.ACTION_DOWN) {
+        if (keyEvent != null) {
           return; //we only handle down
         }
       }
