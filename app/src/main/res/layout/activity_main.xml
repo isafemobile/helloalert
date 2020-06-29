@@ -7,11 +7,12 @@
   tools:context="eu.kutik.helloalert.MainActivity">
 
   <TextView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="120sp"
+      android:id="@+id/textBox"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
 
-    android:gravity="center"
-    android:text="Hello!" />
+      android:gravity="center"
+      android:text="Press any hardware button"
+      android:textSize="24sp" />
 
 </LinearLayout>

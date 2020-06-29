@@ -30,6 +30,7 @@
         <action android:name="android.intent.action.PTT.down"/>
         <action android:name="ism.intent.action.PTT.down"/>
         <action android:name="com.kodiak.intent.action.PTT_BUTTON"/>
+        <action android:name="cn.ruggear.customkey.MyAction"/>
       </intent-filter>
     </receiver>
   </application>
