@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.util.Log;
 
 import java.util.List;
 
@@ -19,15 +20,9 @@ public class ButtonReceiver extends BroadcastReceiver {
                 final Intent event = new Intent(MainActivity.ACTION_NEW_EVENT);
                 event.putExtra(MainActivity.EVENT_EXTRA, intent.getAction());
 
-                final List<ResolveInfo> receivers = pm.queryBroadcastReceivers(event, 0);
-                if (receivers.size() > 0) {
-                    for (ResolveInfo r : receivers) {
-                        final Intent explicit = new Intent(event);
-                        final ComponentName cn = new ComponentName(r.activityInfo.applicationInfo.packageName,
-                                r.activityInfo.name);
-                        explicit.setComponent(cn);
-                        context.sendBroadcast(explicit);
-                    }
+                if (MainActivity.active) {
+                        final Intent implicit = new Intent(event);
+                        context.sendBroadcast(implicit);
                 } else {
                     // Activity not started yet...
                     final Intent activity = new Intent(context, MainActivity.class);

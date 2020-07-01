@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -25,18 +26,21 @@ public class MainActivity extends Activity {
         }
     };
 
-    private int count = 1;
+    private static int count = 1;
+    public static boolean  active = false;
 
     @Override
     protected void onResume() {
         super.onResume();
         this.registerReceiver(receiver, filter);
+        active = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(receiver);
+        active = false;
     }
 
     @Override
@@ -47,7 +51,6 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         setContentView(R.layout.activity_main);
-
         final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EVENT_EXTRA)) {
             onNewEvent(intent.getStringExtra(EVENT_EXTRA));
