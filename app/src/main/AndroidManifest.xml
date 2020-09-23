@@ -3,10 +3,6 @@
           xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools">
 
-  <!--for app to avoid 5sec delay in broadcast handling it needs this permission -->
-  <!--<uses-permission android:name="android.permission.STOP_APP_SWICHES"
-                       tools:ignore="ProtectedPermissions"/>-->
-
   <application
     android:theme="@android:style/Theme.Holo.NoActionBar"
     android:label="Hello"
