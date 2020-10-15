@@ -7,7 +7,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -15,13 +17,14 @@ public class MainActivity extends Activity {
 
     public static final String ACTION_NEW_EVENT = "eu.kutik.helloalert.ACTION_NEW_EVENT";
     public static final String EVENT_EXTRA = "extra_intent";
+    private static final String TAG = "HelloAlert";
 
     private final IntentFilter filter = new IntentFilter(ACTION_NEW_EVENT);
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             if (intent != null && intent.hasExtra(EVENT_EXTRA)) {
-                onNewEvent(intent.getStringExtra(EVENT_EXTRA));
+                onNewEvent(intent);
             }
         }
     };
@@ -53,15 +56,37 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EVENT_EXTRA)) {
-            onNewEvent(intent.getStringExtra(EVENT_EXTRA));
+            onNewEvent(intent);
         }
     }
 
     @SuppressLint("SetTextI18n")
-    public void onNewEvent(final String action) {
+    public void onNewEvent(final Intent intent) {
+        String action = intent.getStringExtra(EVENT_EXTRA);
+        long receiverTime = intent.getLongExtra("receiverTime", 0);
+        Bundle extras = intent.getExtras();
+        long presstime = 0;
+        long eventtime = 0;
+        if (extras != null) {
+            Log.d(TAG, "intent has extras");
+            presstime = extras.getLong("presstime", 0);
+            KeyEvent event = (KeyEvent) extras.get(Intent.EXTRA_KEY_EVENT);
+            if (event != null) {
+                Log.d(TAG, "intent has event extras");
+                eventtime = event.getEventTime();
+            }
+        }
         TextView text = (TextView) findViewById(R.id.textBox);
         if (text != null) {
-            text.setText("Received intent: (" + count++ + ") :" + action);
+            if ("android.intent.action.PTT.down".equals(action) && receiverTime > 0 && eventtime > 0) {
+                Log.d(TAG, "ptt down intent received");
+                text.setText("Received: " + action + " " + (SystemClock.uptimeMillis() - receiverTime) + " ms after receiverTime\n"
+                        + "and " + (SystemClock.uptimeMillis() - eventtime) + " ms after event");
+            } else if ("android.intent.action.PTT.down".equals(action) && eventtime > 0) {
+                text.setText("Received: " + action + " " + (SystemClock.uptimeMillis() - eventtime) + " ms after event");
+            } else {
+                text.setText("Received intent: " + action);
+            }
         }
     }
 }
