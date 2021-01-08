@@ -18,12 +18,13 @@ public class MainActivity extends Activity {
     public static final String ACTION_NEW_EVENT = "eu.kutik.helloalert.ACTION_NEW_EVENT";
     public static final String EVENT_EXTRA = "extra_intent";
     private static final String TAG = "HelloAlert";
+    private IntentFilter intentFilter;
 
-    private final IntentFilter filter = new IntentFilter(ACTION_NEW_EVENT);
+
     private final BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, final Intent intent) {
-            if (intent != null && intent.hasExtra(EVENT_EXTRA)) {
+            if (intent != null) {
                 onNewEvent(intent);
             }
         }
@@ -35,7 +36,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        this.registerReceiver(receiver, filter);
+        this.registerReceiver(receiver, intentFilter);
         active = true;
     }
 
@@ -54,6 +55,9 @@ public class MainActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         setContentView(R.layout.activity_main);
+        intentFilter = new IntentFilter(ACTION_NEW_EVENT);
+        intentFilter.addAction("android.intent.action.PTT.down");
+        intentFilter.addAction("android.intent.action.PTT.up");
         final Intent intent = getIntent();
         if (intent != null && intent.hasExtra(EVENT_EXTRA)) {
             onNewEvent(intent);
@@ -63,13 +67,12 @@ public class MainActivity extends Activity {
     @SuppressLint("SetTextI18n")
     public void onNewEvent(final Intent intent) {
         String action = intent.getStringExtra(EVENT_EXTRA);
+        if (action == null) action = intent.getAction();
         long receiverTime = intent.getLongExtra("receiverTime", 0);
         Bundle extras = intent.getExtras();
-        long presstime = 0;
         long eventtime = 0;
         if (extras != null) {
             Log.d(TAG, "intent has extras");
-            presstime = extras.getLong("presstime", 0);
             KeyEvent event = (KeyEvent) extras.get(Intent.EXTRA_KEY_EVENT);
             if (event != null) {
                 Log.d(TAG, "intent has event extras");
