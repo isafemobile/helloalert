@@ -63,10 +63,17 @@ public class MainActivity extends Activity {
                 long receiverTime = intent.getLongExtra(EXTRA_RECEIVER_TIME, 0);
                 String action = buttonIntent.getAction();
 
+                boolean isDown = false;
                 long eventTime = 0;
                 KeyEvent keyEvent = buttonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 if (keyEvent != null) {
                     eventTime = keyEvent.getEventTime();
+                    isDown = keyEvent.getAction() == KeyEvent.ACTION_DOWN;
+                }
+
+                //clear display output on down event
+                if (isDown) {
+                    text.setText("");
                 }
 
                 text.append("[" + count + "] " + action + "\n");
