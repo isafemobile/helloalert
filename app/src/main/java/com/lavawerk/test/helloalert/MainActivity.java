@@ -1,4 +1,4 @@
-package eu.kutik.helloalert;
+package com.lavawerk.test.helloalert;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -7,13 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.WindowManager;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    public static final String ACTION_NEW_EVENT = "eu.kutik.helloalert.ACTION_NEW_EVENT";
+    public static final String ACTION_NEW_EVENT = "com.lavawerk.test.helloalert.ACTION_NEW_EVENT";
     public static final String EVENT_EXTRA = "extra_intent";
 
     private final IntentFilter filter = new IntentFilter(ACTION_NEW_EVENT);

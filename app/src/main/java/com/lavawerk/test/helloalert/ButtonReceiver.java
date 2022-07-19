@@ -1,14 +1,9 @@
-package eu.kutik.helloalert;
+package com.lavawerk.test.helloalert;
 
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.util.Log;
-
-import java.util.List;
 
 public class ButtonReceiver extends BroadcastReceiver {
 

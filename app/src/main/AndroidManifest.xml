@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="eu.kutik.helloalert"
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
 
   <application
-    android:theme="@android:style/Theme.Holo.NoActionBar"
     android:label="Hello"
+    android:theme="@android:style/Theme.Holo.NoActionBar"
     tools:ignore="AllowBackup,GoogleAppIndexingWarning,MissingApplicationIcon">
     <activity
       android:name=".MainActivity"
+      android:exported="true"
       android:showOnLockScreen="true">
       <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
+        <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER"/>
+        <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
 
@@ -23,15 +23,15 @@
       android:exported="true"
       tools:ignore="ExportedReceiver">
       <intent-filter android:priority="-999">
-        <action android:name="android.intent.action.PTT.down"/>
-        <action android:name="android.intent.action.PTT.up"/>
-        <action android:name="ism.intent.action.PTT.down"/>
-        <action android:name="ism.intent.action.PTT.up"/>
-        <action android:name="com.kodiak.intent.action.PTT_BUTTON"/>
-        <action android:name="cn.ruggear.customkey.MyAction"/>
-        <action android:name="com.kodiak.intent.action.KEYCODE_SOS"/>
-        <action android:name="android.intent.action.sos.down"/>
-        <action android:name="android.intent.action.sos.up"/>
+        <action android:name="android.intent.action.PTT.down" />
+        <action android:name="android.intent.action.PTT.up" />
+        <action android:name="ism.intent.action.PTT.down" />
+        <action android:name="ism.intent.action.PTT.up" />
+        <action android:name="com.kodiak.intent.action.PTT_BUTTON" />
+        <action android:name="cn.ruggear.customkey.MyAction" />
+        <action android:name="com.kodiak.intent.action.KEYCODE_SOS" />
+        <action android:name="android.intent.action.sos.down" />
+        <action android:name="android.intent.action.sos.up" />
       </intent-filter>
     </receiver>
   </application>

@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  tools:context="eu.kutik.helloalert.MainActivity">
+  tools:context="com.lavawerk.test.helloalert.MainActivity">
 
   <TextView
-      android:id="@+id/textBox"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-
-      android:gravity="center"
-      android:text="Press any hardware button"
-      android:textSize="24sp" />
+    android:id="@+id/textBox"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:text="Press any hardware button"
+    android:textSize="24sp"
+    tools:ignore="HardcodedText" />
 
 </LinearLayout>
