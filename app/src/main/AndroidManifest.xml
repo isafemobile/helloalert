@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
+  <!--
+    Notice: Requires you to manually enable this permission by going to:
+    Settings > Apps > Special app access > Display over other apps
+    and enable this permission for HelloAlert application.
+   -->
+  <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
   <application
     android:label="Hello"
     android:theme="@android:style/Theme.Holo.NoActionBar"
