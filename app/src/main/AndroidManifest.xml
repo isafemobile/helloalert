@@ -44,6 +44,8 @@
         <action android:name="android.intent.action.SOS_BUTTON" />
         <action android:name="com.microsoft.teams.action.PTT_DOWN" />
         <action android:name="com.microsoft.teams.action.PTT_UP" />
+        <action android:name="android.intent.action.ptt2.down" />
+        <action android:name="android.intent.action.ptt2.up" />
       </intent-filter>
     </receiver>
   </application>
