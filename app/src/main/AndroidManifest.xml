@@ -30,20 +30,29 @@
       android:exported="true"
       tools:ignore="ExportedReceiver">
       <intent-filter android:priority="-999">
+        <!-- In the device go to Settings > Buttons -->
+        <!-- Set short press action to one of: -->
+        <!-- Push to Talk -->
         <action android:name="android.intent.action.PTT.down" />
         <action android:name="android.intent.action.PTT.up" />
         <action android:name="ism.intent.action.PTT.down" />
         <action android:name="ism.intent.action.PTT.up" />
+        <!-- Kodiak PTT -->
         <action android:name="com.kodiak.intent.action.PTT_BUTTON" />
         <action android:name="cn.ruggear.customkey.MyAction" />
+        <!-- Kodiak SOS -->
         <action android:name="com.kodiak.intent.action.KEYCODE_SOS" />
+        <!-- SOS -->
         <action android:name="android.intent.action.sos.down" />
         <action android:name="android.intent.action.sos.up" />
+        <action android:name="android.intent.action.SOS_BUTTON" />
+        <!-- Agnet PTT -->
         <action android:name="com.airbus.pmr.action.PTT_START" />
         <action android:name="com.airbus.pmr.action.PTT_STOP" />
-        <action android:name="android.intent.action.SOS_BUTTON" />
+        <!-- Microsoft Teams PTT -->
         <action android:name="com.microsoft.teams.action.PTT_DOWN" />
         <action android:name="com.microsoft.teams.action.PTT_UP" />
+        <!-- Streamwide PTT -->
         <action android:name="android.intent.action.ptt2.down" />
         <action android:name="android.intent.action.ptt2.up" />
       </intent-filter>
