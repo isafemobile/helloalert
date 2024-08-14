@@ -56,6 +56,28 @@
         <!-- Streamwide PTT -->
         <action android:name="android.intent.action.ptt2.down" />
         <action android:name="android.intent.action.ptt2.up" />
+        <!-- Nokia Teams Comms PTT -->
+        <action android:name="nokia.ntc.intent.action.ptt.down" />
+        <action android:name="nokia.ntc.intent.action.ptt.up" />
+        <!-- Nokia Teams Comms SOS -->
+        <action android:name="nokia.ntc.intent.action.sos.down" />
+        <action android:name="nokia.ntc.intent.action.sos.up" />
+        <!-- Ruggear LWP SOS (available only on longpress) -->
+        <action android:name="com.ruggear.intent.action.SOS_LWP" />
+        <!--Motorola Wave ptt-->
+        <action android:name="com.mcx.intent.action.CRITICAL_COMMUNICATION_CONTROL_KEY" />
+        <!--Motorola Wave sos-->
+        <action android:name="com.mcx.intent.action.CRITICAL_COMMUNICATION_SOS_KEY" />
+        <!--Kodiak channel next/previous-->
+        <action android:name="com.kodiak.intent.action.ACTION_BUTTON_NEXT" />
+        <action android:name="com.kodiak.intent.action.ACTION_BUTTON_PREVIOUS" />
+        <!--Ruggear channel next/previous-->
+        <action android:name="com.ruggear.intent.action.PTT.CHANNEL.next" />
+        <action android:name="com.ruggear.intent.action.PTT.CHANNEL.prev" />
+        <!--Isafemobile channel next/previous-->
+        <action android:name="com.isafemobile.intent.action.PTT_CHANNEL_NEXT" />
+        <action android:name="com.isafemobile.intent.action.PTT_CHANNEL_PREVIOUS" />
+
       </intent-filter>
     </receiver>
   </application>
