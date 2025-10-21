@@ -27,6 +27,11 @@ public class MainActivity extends Activity {
             onNewEvent(intent);
         }
     };
+    private long lastEventTime;
+    private int bounce;
+    private final String KODIAK_NEXT = "com.kodiak.intent.action.ACTION_BUTTON_NEXT";
+    private final String KODIAK_PREV = "com.kodiak.intent.action.ACTION_BUTTON_PREVIOUS";
+
 
     @Override
     protected void onResume() {
@@ -65,32 +70,67 @@ public class MainActivity extends Activity {
             if (intent != null && intent.hasExtra(EXTRA_INTENT)) {
                 Intent buttonIntent = intent.getParcelableExtra(EXTRA_INTENT);
 
+                if (buttonIntent == null) {
+                    text.append("[" + count + "] buttonIntent is null\n");
+                    count++;
+                    return;
+                }
+
                 long receiverTime = intent.getLongExtra(EXTRA_RECEIVER_TIME, 0);
                 String action = buttonIntent.getAction();
 
                 boolean isDown = false;
                 long eventTime = 0;
+                int keyCode = 0;
                 KeyEvent keyEvent = buttonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT);
                 if (keyEvent != null) {
                     eventTime = keyEvent.getEventTime();
                     isDown = keyEvent.getAction() == KeyEvent.ACTION_DOWN;
+                    keyCode = keyEvent.getKeyCode();
                 }
 
-                //clear display output on down event
-                if (isDown) {
+                //text.append("[" + count + "] " + action + "[" + (isDown ? "DOWN" : "UP") + "]" + "\n");
+                long deltaReceiverTime = SystemClock.uptimeMillis() - receiverTime;
+                //text.append("[" + count + "] deltaReceiverTime: " + deltaReceiverTime + "ms\n");
+
+                long deltaEventTime = SystemClock.uptimeMillis() - eventTime;
+                //text.append("[" + count + "] deltaEventTime: " + deltaEventTime + "ms\n");
+
+                if (count <= 0) {
                     text.setText("");
+                    count = 0;
                 }
 
-                text.append("[" + count + "] " + action + "\n");
-                if (receiverTime > 0) {
-                    long deltaReceiverTime = SystemClock.uptimeMillis() - receiverTime;
-                    text.append("[" + count + "] deltaReceiverTime: " + deltaReceiverTime + "ms\n");
-                }
-                if (eventTime > 0) {
-                    long deltaEventTime = SystemClock.uptimeMillis() - eventTime;
-                    text.append("[" + count + "] deltaEventTime: " + deltaEventTime + "ms\n");
-                }
                 count++;
+
+                if (lastEventTime > 0) { //skip first event
+                    long deltaLastEvent = eventTime - lastEventTime;
+                    deltaLastEvent = (deltaLastEvent < 0) ? deltaLastEvent * -1 : deltaLastEvent;
+
+                    String ke;
+                    switch (action) {
+                        case KODIAK_NEXT:
+                            ke = "KN";
+                            break;
+                        case KODIAK_PREV:
+                            ke = "KP";
+                            break;
+                        default:
+                            ke = "??";
+                            break;
+                    }
+                    ke = ke + (isDown ? "↓" : "↑");
+                    ke = ke + "[" + keyCode + "]";
+                    text.append("[" + count + "] "+  ke + " " + deltaLastEvent + "ms\n");
+                    if (deltaLastEvent < 1) {
+                        bounce++;
+                        double percent = ((double) bounce / (double) count) * 100.0;
+                        text.append("[" + count + "] ⚠ Bounce: " + bounce + " / " + count + " (" + String.format("%.2f", percent) + "%)\n\n");
+                        text.append("Event time: " + eventTime + "\n");
+                    }
+
+                }
+                lastEventTime = eventTime;
             }
         }
     }
