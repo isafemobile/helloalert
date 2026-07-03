@@ -77,6 +77,9 @@
         <!--Isafemobile channel next/previous-->
         <action android:name="com.isafemobile.intent.action.PTT_CHANNEL_NEXT" />
         <action android:name="com.isafemobile.intent.action.PTT_CHANNEL_PREVIOUS" />
+        <action android:name="com.mcx.intent.action.ACTION_BUTTON_NEXT" />
+        <action android:name="com.mcx.intent.action.ACTION_BUTTON_PREVIOUS" />
+        <action android:name="com.mcx.intent.action.PRGM_KEY" />
 
       </intent-filter>
     </receiver>

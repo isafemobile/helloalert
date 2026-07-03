@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -31,7 +32,11 @@ public class MainActivity extends Activity {
     private int bounce;
     private final String KODIAK_NEXT = "com.kodiak.intent.action.ACTION_BUTTON_NEXT";
     private final String KODIAK_PREV = "com.kodiak.intent.action.ACTION_BUTTON_PREVIOUS";
-
+    private final String PRGM_KEY = "com.mcx.intent.action.PRGM_KEY";
+    private final String MCX_NEXT = "com.mcx.intent.action.ACTION_BUTTON_NEXT";
+    private final String MCX_PREV = "com.mcx.intent.action.ACTION_BUTTON_PREVIOUS";
+    private final String RG_NEXT = "com.ruggear.intent.action.PTT.CHANNEL.next";
+    private final String RG_PREV = "com.ruggear.intent.action.PTT.CHANNEL.prev";
 
     @Override
     protected void onResume() {
@@ -78,6 +83,7 @@ public class MainActivity extends Activity {
 
                 long receiverTime = intent.getLongExtra(EXTRA_RECEIVER_TIME, 0);
                 String action = buttonIntent.getAction();
+                Log.d("HelloAlert", "onNewEvent, action is: " + action);
 
                 boolean isDown = false;
                 long eventTime = 0;
@@ -103,7 +109,7 @@ public class MainActivity extends Activity {
 
                 count++;
 
-                if (lastEventTime > 0) { //skip first event
+                if (lastEventTime > 0 && action != null) { //skip first event
                     long deltaLastEvent = eventTime - lastEventTime;
                     deltaLastEvent = (deltaLastEvent < 0) ? deltaLastEvent * -1 : deltaLastEvent;
 
@@ -114,6 +120,21 @@ public class MainActivity extends Activity {
                             break;
                         case KODIAK_PREV:
                             ke = "KP";
+                            break;
+                        case PRGM_KEY:
+                            ke = "EXTRA_PRG_NUM: " + buttonIntent.getIntExtra("Intent.EXTRA_PRG_NUM", -1);
+                            break;
+                        case MCX_NEXT:
+                            ke = "MCX_NEXT";
+                            break;
+                        case MCX_PREV:
+                            ke = "MCX_PREV";
+                            break;
+                        case RG_NEXT:
+                            ke = "RG_NEXT";
+                            break;
+                        case RG_PREV:
+                            ke = "RG_PREV";
                             break;
                         default:
                             ke = "??";
