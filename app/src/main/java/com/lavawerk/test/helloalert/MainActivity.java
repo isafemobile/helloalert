@@ -37,6 +37,9 @@ public class MainActivity extends Activity {
     private final String MCX_PREV = "com.mcx.intent.action.ACTION_BUTTON_PREVIOUS";
     private final String RG_NEXT = "com.ruggear.intent.action.PTT.CHANNEL.next";
     private final String RG_PREV = "com.ruggear.intent.action.PTT.CHANNEL.prev";
+    private final String PTT_DOWN = "android.intent.action.PTT.down";
+    private final String PTT_UP = "android.intent.action.PTT.up";
+
 
     @Override
     protected void onResume() {
@@ -109,9 +112,13 @@ public class MainActivity extends Activity {
 
                 count++;
 
-                if (lastEventTime > 0 && action != null) { //skip first event
+                if (action != null) { //skip first event
                     long deltaLastEvent = eventTime - lastEventTime;
-                    deltaLastEvent = (deltaLastEvent < 0) ? deltaLastEvent * -1 : deltaLastEvent;
+                    if (lastEventTime <= 0) {
+                        deltaLastEvent = 0;
+                    } else {
+                        deltaLastEvent = (deltaLastEvent < 0) ? deltaLastEvent * -1 : deltaLastEvent;
+                    }
 
                     String ke;
                     switch (action) {
@@ -136,6 +143,12 @@ public class MainActivity extends Activity {
                         case RG_PREV:
                             ke = "RG_PREV";
                             break;
+                        case PTT_DOWN:
+                            ke = "PTT_DOWN";
+                            break;
+                        case PTT_UP:
+                            ke = "PTT_UP";
+                            break;
                         default:
                             ke = "??";
                             break;
@@ -143,13 +156,12 @@ public class MainActivity extends Activity {
                     ke = ke + (isDown ? "↓" : "↑");
                     ke = ke + "[" + keyCode + "]";
                     text.append("[" + count + "] "+  ke + " " + deltaLastEvent + "ms\n");
-                    if (deltaLastEvent < 1) {
+                    if (deltaLastEvent < 1 && lastEventTime > 0) {
                         bounce++;
                         double percent = ((double) bounce / (double) count) * 100.0;
                         text.append("[" + count + "] ⚠ Bounce: " + bounce + " / " + count + " (" + String.format("%.2f", percent) + "%)\n\n");
                         text.append("Event time: " + eventTime + "\n");
                     }
-
                 }
                 lastEventTime = eventTime;
             }
